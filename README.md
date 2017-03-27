@@ -6,7 +6,7 @@
 [![travis][travis-image]][travis-url]
 [![standard][standard-image]][standard-url]
 
-Check if a file should be ignored for Dat uses:
+Check if a file should be ignored for Dat:
 
 * Ignore `.dat` by default
 * Use the `.datignore` file
@@ -86,6 +86,10 @@ ignore('.dat') // true
 ignore('.git') // true
 ignore('data/cats.csv') // false
 ```
+
+#### `dir`
+
+`dir` is used to find `.datignore` and is prepended to paths found in `.datignore`.
 
 #### Options:
 
