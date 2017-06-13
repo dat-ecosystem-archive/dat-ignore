@@ -30,6 +30,7 @@ function ignore (dir, opts) {
   if (ignoreHidden) ignoreMatches = ignoreMatches.concat(ignoreHidden) // ignore all hidden things
 
   return function (file) {
+    if (file === '/.well-known/dat') return false
     return match(ignoreMatches, file)
   }
 
