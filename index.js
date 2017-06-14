@@ -14,6 +14,7 @@ function ignore (dir, opts) {
     datignorePath: dir ? path.join(dir, '.datignore') : '.datignore'
   }, opts)
 
+  var allow = ['**/.well-known/dat'] // whitelist
   var ignoreMatches = opts.ignore // we end up with array of ignores here
     ? Array.isArray(opts.ignore)
       ? opts.ignore
@@ -30,7 +31,7 @@ function ignore (dir, opts) {
   if (ignoreHidden) ignoreMatches = ignoreMatches.concat(ignoreHidden) // ignore all hidden things
 
   return function (file) {
-    if (file === '/.well-known/dat') return false
+    if (match(allow, file)) return false
     return match(ignoreMatches, file)
   }
 
