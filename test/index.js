@@ -79,6 +79,14 @@ test('without dir ok', function (t) {
   t.end()
 })
 
+test('well-known not ignored', function (t) {
+  var ignore = datIgnore()
+  checkDefaults(t, ignore)
+  t.notOk(ignore('/.well-known/dat'), 'well known dat not ignored')
+  t.notOk(ignore(path.join(__dirname, '.well-known/dat')), 'well known dat not ignored')
+  t.end()
+})
+
 function checkDefaults (t, ignore) {
   // Default Ignore
   t.ok(
