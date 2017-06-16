@@ -9,8 +9,16 @@ test('default ignore with dir', function (t) {
   checkDefaults(t, ignore)
 
   // Dat Ignore stuff
-  t.notOk(ignore('index.js'), 'index.js without path not ignored by .datignore')
   t.ok(ignore(path.join(__dirname, 'index.js')), 'full path index.js is ignored by .datignore')
+
+  t.end()
+})
+
+test('ignore from within hidden folder', function (t) {
+  var dir = path.join(__dirname, '.hidden')
+  var ignore = datIgnore(dir)
+  checkDefaults(t, ignore)
+  t.notOk(ignore(path.join(dir, 'index.js')), 'file allowed inside hidden')
 
   t.end()
 })
@@ -51,8 +59,6 @@ test('useDatIgnore false', function (t) {
 test('change datignorePath', function (t) {
   var ignore = datIgnore(path.join(__dirname, '..'), {datignorePath: path.join(__dirname, '.datignore')})
   t.ok(ignore('.dat'), '.dat ignored')
-  t.notOk(ignore('index.js'), 'wrong full path in datignore not ignored')
-  t.notOk(ignore(path.join(__dirname, 'index.js')), 'wrong full path in datignore not ignored')
   t.ok(ignore(path.join(__dirname, '..', 'index.js')), 'file in datignore ignored')
   t.end()
 })
@@ -60,7 +66,6 @@ test('change datignorePath', function (t) {
 test('datignore as buf', function (t) {
   var ignore = datIgnore(__dirname, {datignore: fs.readFileSync(path.join(__dirname, '.datignore'))})
   t.ok(ignore('.dat'), '.dat ignored')
-  t.notOk(ignore('index.js'), 'wrong full path in datignore not ignored')
   t.ok(ignore(path.join(__dirname, 'index.js')), 'file in datignore ignored')
   t.end()
 })
@@ -68,7 +73,6 @@ test('datignore as buf', function (t) {
 test('datignore as str', function (t) {
   var ignore = datIgnore(__dirname, {datignore: fs.readFileSync(path.join(__dirname, '.datignore'), 'utf-8')})
   t.ok(ignore('.dat'), '.dat ignored')
-  t.notOk(ignore('index.js'), 'wrong full path in datignore not ignored')
   t.ok(ignore(path.join(__dirname, 'index.js')), 'file in datignore ignored')
   t.end()
 })
@@ -82,7 +86,6 @@ test('without dir ok', function (t) {
 test('well-known not ignored', function (t) {
   var ignore = datIgnore()
   checkDefaults(t, ignore)
-  t.notOk(ignore('/.well-known/dat'), 'well known dat not ignored')
   t.notOk(ignore(path.join(__dirname, '.well-known/dat')), 'well known dat not ignored')
   t.end()
 })

@@ -14,14 +14,14 @@ function ignore (dir, opts) {
     datignorePath: dir ? path.join(dir, '.datignore') : '.datignore'
   }, opts)
 
-  var allow = ['**/.well-known/dat'] // whitelist
+  var allow = ['!**/.well-known/dat']
   var ignoreMatches = opts.ignore // we end up with array of ignores here
     ? Array.isArray(opts.ignore)
       ? opts.ignore
       : [opts.ignore]
     : []
 
-  var defaultIgnore = [/^(?:\/.*)?\.dat(?:\/.*)?$/, '.DS_Store'] // ignore .dat (and DS_Store)
+  var defaultIgnore = [/^(?:\/.*)?\.dat(?:\/.*)?$/, '.DS_Store', '**/.DS_Store'] // ignore .dat (and DS_Store)
   var ignoreHidden = !(opts.ignoreHidden === false) ? [/(^\.|\/\.).*/] : null // ignore hidden files anywhere
   var datIgnore = !(opts.useDatIgnore === false) ? readDatIgnore() : null
 
@@ -29,9 +29,11 @@ function ignore (dir, opts) {
   ignoreMatches = ignoreMatches.concat(defaultIgnore) // always ignore .dat folder
   if (datIgnore) ignoreMatches = ignoreMatches.concat(datIgnore) // add .datignore
   if (ignoreHidden) ignoreMatches = ignoreMatches.concat(ignoreHidden) // ignore all hidden things
+  ignoreMatches = ignoreMatches.concat(allow)
 
   return function (file) {
-    if (match(allow, file)) return false
+    if (dir) file = file.replace(dir, '') // remove dir so we do not ignore that
+    file = file.replace(/^\//, '')
     return match(ignoreMatches, file)
   }
 
@@ -44,9 +46,6 @@ function ignore (dir, opts) {
         .split('\n')
         .filter(function (str) {
           return !!str.trim()
-        })
-        .map(function (line) {
-          return path.join(dir, line) // prepend the dir to each line
         })
     } catch (e) {
       return []
