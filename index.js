@@ -43,7 +43,7 @@ function ignore (dir, opts) {
       if (ignores && typeof opts.datignore !== 'string') ignores = ignores.toString()
       return ignores
         .trim()
-        .split('\n')
+        .split('\r?\n')
         .filter(function (str) {
           return !!str.trim()
         })
