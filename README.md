@@ -77,7 +77,7 @@ var ignore = datIgnore('/data/dir', { datignore: datIgnoreFile })
 
 ## API
 
-### `var ignore = datIgnore([dir], [opts])`
+### `var ignore = datIgnore(dir, [opts])`
 
 Returns a function that checks if a path should be ignored:
 
@@ -89,7 +89,7 @@ ignore('data/cats.csv') // false
 
 #### `dir`
 
-`dir` is used to find `.datignore` and is prepended to paths found in `.datignore`.
+`dir` is the file root to compare to. It is also used to find `.datignore`, if not specified.
 
 #### Options:
 

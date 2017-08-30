@@ -1,3 +1,4 @@
+var assert = require('assert')
 var fs = require('fs')
 var path = require('path')
 var match = require('anymatch')
@@ -6,15 +7,12 @@ var xtend = require('xtend')
 module.exports = ignore
 
 function ignore (dir, opts) {
-  if (typeof dir !== 'string') {
-    opts = dir
-    dir = null
-  }
+  assert.equal(typeof dir, 'string', 'dat-ignore: directory required')
   opts = xtend({
-    datignorePath: dir ? path.join(dir, '.datignore') : '.datignore'
+    datignorePath: path.join(dir, '.datignore')
   }, opts)
 
-  var allow = ['!**/.well-known/dat']
+  var allow = ['!**/.well-known/dat', '!.well-known/dat']
   var ignoreMatches = opts.ignore // we end up with array of ignores here
     ? Array.isArray(opts.ignore)
       ? opts.ignore
@@ -32,7 +30,7 @@ function ignore (dir, opts) {
   ignoreMatches = ignoreMatches.concat(allow)
 
   return function (file) {
-    if (dir) file = file.replace(dir, '') // remove dir so we do not ignore that
+    file = file.replace(dir, '') // remove dir so we do not ignore anything in that path
     file = file.replace(/^\//, '')
     return match(ignoreMatches, file)
   }
@@ -43,7 +41,7 @@ function ignore (dir, opts) {
       if (ignores && typeof opts.datignore !== 'string') ignores = ignores.toString()
       return ignores
         .trim()
-        .split('\r?\n')
+        .split(/[\r\n]+/g)
         .filter(function (str) {
           return !!str.trim()
         })

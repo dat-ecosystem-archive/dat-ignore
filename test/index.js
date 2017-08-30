@@ -77,16 +77,34 @@ test('datignore as str', function (t) {
   t.end()
 })
 
-test('without dir ok', function (t) {
-  var ignore = datIgnore()
-  checkDefaults(t, ignore)
+test('well-known not ignored', function (t) {
+  var ignore = datIgnore(__dirname)
+  t.notOk(ignore(path.join(__dirname, '.well-known/dat')), 'well known dat not ignored')
   t.end()
 })
 
-test('well-known not ignored', function (t) {
-  var ignore = datIgnore()
-  checkDefaults(t, ignore)
-  t.notOk(ignore(path.join(__dirname, '.well-known/dat')), 'well known dat not ignored')
+test('node_modules ignored', function (t) {
+  var ignore = datIgnore(__dirname)
+  t.ok(ignore(path.join(__dirname, 'node_modules')), 'node_modules ignored')
+  t.end()
+})
+
+test('node_modules subdir ignored', function (t) {
+  var ignore = datIgnore(__dirname)
+  t.ok(ignore(path.join(__dirname, 'node_modules', 'dat')), 'node_modules subdir ignored')
+  t.end()
+})
+
+test('node_modules file ignored', function (t) {
+  var ignore = datIgnore(__dirname)
+  t.ok(ignore(path.join(__dirname, 'node_modules', 'dat', 'hello.txt')), 'node_modules subdir ignored')
+  t.end()
+})
+
+test('throws without directory option', function (t) {
+  t.throws(function () {
+    datIgnore({opts: true})
+  })
   t.end()
 })
 
