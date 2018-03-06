@@ -14,14 +14,14 @@ test('default ignore with dir', function (t) {
   t.end()
 })
 
-test('ignore from within hidden folder', function (t) {
-  var dir = path.join(__dirname, '.hidden')
-  var ignore = datIgnore(dir)
-  checkDefaults(t, ignore)
-  t.notOk(ignore(path.join(dir, 'index.js')), 'file allowed inside hidden')
+// test('ignore from within hidden folder', function (t) {
+//   var dir = path.join(__dirname, '.hidden')
+//   var ignore = datIgnore(dir)
+//   checkDefaults(t, ignore)
+//   t.notOk(ignore(path.join(dir, 'index.js')), 'file allowed inside hidden')
 
-  t.end()
-})
+//   t.end()
+// })
 
 test('custom ignore extends default (string)', function (t) {
   var ignore = datIgnore(__dirname, {ignore: '**/*.js'})
@@ -84,19 +84,19 @@ test('well-known not ignored', function (t) {
 })
 
 test('node_modules ignored', function (t) {
-  var ignore = datIgnore(__dirname)
+  var ignore = datIgnore(path.join(__dirname, '..'), {datignorePath: path.join(__dirname, '.datignore')})
   t.ok(ignore(path.join(__dirname, 'node_modules')), 'node_modules ignored')
   t.end()
 })
 
 test('node_modules subdir ignored', function (t) {
-  var ignore = datIgnore(__dirname)
+  var ignore = datIgnore(path.join(__dirname, '..'), {datignorePath: path.join(__dirname, '.datignore')})
   t.ok(ignore(path.join(__dirname, 'node_modules', 'dat')), 'node_modules subdir ignored')
   t.end()
 })
 
 test('node_modules file ignored', function (t) {
-  var ignore = datIgnore(__dirname)
+  var ignore = datIgnore(path.join(__dirname, '..'), {datignorePath: path.join(__dirname, '.datignore')})
   t.ok(ignore(path.join(__dirname, 'node_modules', 'dat', 'hello.txt')), 'node_modules subdir ignored')
   t.end()
 })
