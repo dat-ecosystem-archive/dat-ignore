@@ -11,6 +11,7 @@ function ignore (dir, opts) {
   opts = xtend({
     datignorePath: path.join(dir, '.datignore')
   }, opts)
+  dir = path.resolve(dir)
 
   var allow = ['!**/.well-known/dat', '!.well-known/dat']
   var ignoreMatches = opts.ignore // we end up with array of ignores here
