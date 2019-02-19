@@ -24,7 +24,7 @@ test('default ignore with dir', function (t) {
 // })
 
 test('custom ignore extends default (string)', function (t) {
-  var ignore = datIgnore(__dirname, {ignore: '**/*.js'})
+  var ignore = datIgnore(__dirname, { ignore: '**/*.js' })
   t.ok(ignore('.dat'), '.dat folder ignored')
   t.ok(ignore('foo/bar.js'), 'custom ignore works')
   t.notOk(ignore('foo/bar.txt'), 'txt file gets to come along =)')
@@ -32,7 +32,7 @@ test('custom ignore extends default (string)', function (t) {
 })
 
 test('custom ignore extends default (array)', function (t) {
-  var ignore = datIgnore(__dirname, {ignore: ['super_secret_stuff/*', '**/*.txt']})
+  var ignore = datIgnore(__dirname, { ignore: ['super_secret_stuff/*', '**/*.txt'] })
   t.ok(ignore('.dat'), '.dat still feeling left out =(')
   t.ok(ignore('password.txt'), 'file ignored')
   t.ok(ignore('super_secret_stuff/file.js'), 'secret stuff stays secret')
@@ -41,7 +41,7 @@ test('custom ignore extends default (array)', function (t) {
 })
 
 test('ignore hidden option turned off', function (t) {
-  var ignore = datIgnore(__dirname, {ignoreHidden: false})
+  var ignore = datIgnore(__dirname, { ignoreHidden: false })
 
   t.ok(ignore('.dat'), '.dat still feeling left out =(')
   t.notOk(ignore('.other-hidden'), 'hidden file NOT ignored')
@@ -50,28 +50,28 @@ test('ignore hidden option turned off', function (t) {
 })
 
 test('useDatIgnore false', function (t) {
-  var ignore = datIgnore(__dirname, {useDatIgnore: false})
+  var ignore = datIgnore(__dirname, { useDatIgnore: false })
   t.ok(ignore('.dat'), '.dat ignored')
   t.notOk(ignore(path.join(__dirname, 'index.js')), 'file in datignore not ignored')
   t.end()
 })
 
 test('change datignorePath', function (t) {
-  var ignore = datIgnore(path.join(__dirname, '..'), {datignorePath: path.join(__dirname, '.datignore')})
+  var ignore = datIgnore(path.join(__dirname, '..'), { datignorePath: path.join(__dirname, '.datignore') })
   t.ok(ignore('.dat'), '.dat ignored')
   t.ok(ignore(path.join(__dirname, '..', 'index.js')), 'file in datignore ignored')
   t.end()
 })
 
 test('datignore as buf', function (t) {
-  var ignore = datIgnore(__dirname, {datignore: fs.readFileSync(path.join(__dirname, '.datignore'))})
+  var ignore = datIgnore(__dirname, { datignore: fs.readFileSync(path.join(__dirname, '.datignore')) })
   t.ok(ignore('.dat'), '.dat ignored')
   t.ok(ignore(path.join(__dirname, 'index.js')), 'file in datignore ignored')
   t.end()
 })
 
 test('datignore as str', function (t) {
-  var ignore = datIgnore(__dirname, {datignore: fs.readFileSync(path.join(__dirname, '.datignore'), 'utf-8')})
+  var ignore = datIgnore(__dirname, { datignore: fs.readFileSync(path.join(__dirname, '.datignore'), 'utf-8') })
   t.ok(ignore('.dat'), '.dat ignored')
   t.ok(ignore(path.join(__dirname, 'index.js')), 'file in datignore ignored')
   t.end()
@@ -84,26 +84,26 @@ test('well-known not ignored', function (t) {
 })
 
 test('node_modules ignored', function (t) {
-  var ignore = datIgnore(path.join(__dirname, '..'), {datignorePath: path.join(__dirname, '.datignore')})
+  var ignore = datIgnore(path.join(__dirname, '..'), { datignorePath: path.join(__dirname, '.datignore') })
   t.ok(ignore(path.join(__dirname, 'node_modules')), 'node_modules ignored')
   t.end()
 })
 
 test('node_modules subdir ignored', function (t) {
-  var ignore = datIgnore(path.join(__dirname, '..'), {datignorePath: path.join(__dirname, '.datignore')})
+  var ignore = datIgnore(path.join(__dirname, '..'), { datignorePath: path.join(__dirname, '.datignore') })
   t.ok(ignore(path.join(__dirname, 'node_modules', 'dat')), 'node_modules subdir ignored')
   t.end()
 })
 
 test('node_modules file ignored', function (t) {
-  var ignore = datIgnore(path.join(__dirname, '..'), {datignorePath: path.join(__dirname, '.datignore')})
+  var ignore = datIgnore(path.join(__dirname, '..'), { datignorePath: path.join(__dirname, '.datignore') })
   t.ok(ignore(path.join(__dirname, 'node_modules', 'dat', 'hello.txt')), 'node_modules subdir ignored')
   t.end()
 })
 
 test('throws without directory option', function (t) {
   t.throws(function () {
-    datIgnore({opts: true})
+    datIgnore({ opts: true })
   })
   t.end()
 })
