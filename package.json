@@ -2,15 +2,15 @@
   "name": "dat-ignore",
   "description": "default ignore for dat",
   "version": "2.1.1",
-  "author": "Joe Hand <joe@hand.email>",
+  "author": "Dat Project contributors",
   "bugs": {
-    "url": "https://github.com/joehand/dat-ignore/issues"
+    "url": "https://github.com/datproject/dat-ignore/issues"
   },
   "devDependencies": {
     "standard": "*",
     "tape": "^4.10.1"
   },
-  "homepage": "https://github.com/joehand/dat-ignore",
+  "homepage": "https://github.com/datproject/dat-ignore",
   "keywords": [
     "dat"
   ],
@@ -18,7 +18,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/joehand/dat-ignore.git"
+    "url": "https://github.com/datproject/dat-ignore.git"
   },
   "scripts": {
     "test": "standard && tape test/*.js"

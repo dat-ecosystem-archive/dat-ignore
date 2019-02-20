@@ -105,7 +105,7 @@ ignore('data/cats.csv') // false
 
 [npm-image]: https://img.shields.io/npm/v/dat-ignore.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/dat-ignore
-[travis-image]: https://img.shields.io/travis/joehand/dat-ignore.svg?style=flat-square
-[travis-url]: https://travis-ci.org/joehand/dat-ignore
+[travis-image]: https://img.shields.io/travis/datproject/dat-ignore.svg?style=flat-square
+[travis-url]: https://travis-ci.org/datproject/dat-ignore
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
 [standard-url]: http://npm.im/standard
