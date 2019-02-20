@@ -2,13 +2,12 @@ var assert = require('assert')
 var fs = require('fs')
 var path = require('path')
 var match = require('anymatch')
-var xtend = require('xtend')
 
 module.exports = ignore
 
 function ignore (dir, opts) {
-  assert.equal(typeof dir, 'string', 'dat-ignore: directory required')
-  opts = xtend({
+  assert.strictEqual(typeof dir, 'string', 'dat-ignore: directory required')
+  opts = Object.assign({
     datignorePath: path.join(dir, '.datignore')
   }, opts)
   dir = path.resolve(dir)
