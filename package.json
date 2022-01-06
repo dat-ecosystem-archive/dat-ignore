@@ -1,7 +1,7 @@
 {
   "name": "dat-ignore",
   "description": "default ignore for dat",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "author": "Dat Project contributors",
   "bugs": {
     "url": "https://github.com/datproject/dat-ignore/issues"
